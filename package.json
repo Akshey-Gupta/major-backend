@@ -1,0 +1,16 @@
+{
+  "name": "major-backend",
+  "version": "1.0.0",
+  "description": "My first major backend project",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "javascript",
+    "backend",
+    "chai"
+  ],
+  "author": "akshey gupta",
+  "license": "ISC"
+}
