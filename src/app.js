@@ -1,26 +1,35 @@
-import express from 'express'
-import cors from "cors"
-import cookieParser from 'cookie-parser'
-const app=express()
+import express from 'express';
+import cors from 'cors';
+import cookieParser from 'cookie-parser';
+import morgan from 'morgan';
 
+// Initialize Express App
+const app = express();
+
+// CORS Configuration
 app.use(cors({
-    origin:process.env.CORS_ORIGIN,
-    credentials:true,
-    methods: ['GET', 'POST'],
-}))
+    origin: process.env.CORS_ORIGIN || "http://localhost:3000", // Default if not set
+    credentials: true,
+    methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE'], // Allow more methods
+}));
 
-app.use(express.json({limit:"16kb"}))
-app.use(express.urlencoded({extended:true, limit:"16kb"}))
-app.use(express.static("public"))
+// Middleware
+app.use(express.json({ limit: "16kb" }));  // JSON body parsing
+app.use(express.urlencoded({ extended: true, limit: "16kb" })); // Form-data parsing
+app.use(express.static("public")); // Serve static files
+app.use(cookieParser()); // Parse cookies
+app.use(morgan('dev')); // Log requests
 
-/*Using CookieParser */
-app.use(cookieParser())
+// Routes Import
+import userRouter from './routes/user.routes.js';
 
-//routes import 
-import userRouter from './routes/user.routes.js'
+// Routes Declaration
+app.use("/api/v1/users", userRouter);
 
-//routes declaration
-app.use("/api/v1/users",userRouter)
+// Global Error Handling Middleware
+app.use((err, req, res, next) => {
+    console.error("Error:", err.message);
+    res.status(500).json({ success: false, message: err.message });
+});
 
-
-export { app }
+export { app };

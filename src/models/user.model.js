@@ -1,5 +1,6 @@
 import mongoose,{Schema} from "mongoose";
-import { JsonWebTokenError } from "jsonwebtoken";
+import pkg from 'jsonwebtoken';
+const { JsonWebTokenError } = pkg;
 import bcrypt from "bcrypt"
 
 //bcrypt helps hash/encrypt your password
@@ -56,7 +57,7 @@ userSchema.pre("save",async function(next){//encrypting data before saving
     if(!this.isModified("password")){
         return next()
     }
-    this.password=bcrypt.hash(this.password,10)
+    this.password=await bcrypt.hash(this.password,10)
     next()
 })
 
