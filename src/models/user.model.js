@@ -1,6 +1,5 @@
 import mongoose,{Schema} from "mongoose";
-import pkg from 'jsonwebtoken';
-const { JsonWebTokenError } = pkg;
+import jwt from 'jsonwebtoken';
 import bcrypt from "bcrypt"
 
 //bcrypt helps hash/encrypt your password
