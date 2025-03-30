@@ -190,5 +190,5 @@ try {
 export { registerUser, 
          loginUser,
          logoutUser,
-         refreshAcessToken
+         refreshAcessToken 
 };
