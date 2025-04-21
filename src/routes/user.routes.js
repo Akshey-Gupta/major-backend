@@ -1,5 +1,5 @@
 import {Router} from 'express';
-import { loginUser, logoutUser, refreshAcessToken, registerUser } from '../controllers/user.controller.js';
+import { changeCurrentPassword, getCurrentUSer, loginUser, logoutUser, refreshAcessToken, registerUser, updateAccountDetails, updateUserAvatar, updateUserCoverImage } from '../controllers/user.controller.js';
 import {upload} from '../middlewares/multure.middleware.js';
 import { verifyJWT } from '../middlewares/auth.middleware.js';
 
@@ -22,5 +22,21 @@ router.route("/refresh-token").post(refreshAcessToken)
 
 //secured routes
 router.route("/logout").post(verifyJWT, logoutUser)
+
+router.route("/change-password").post(verifyJWT,changeCurrentPassword)
+router.route("/me").get(verifyJWT,getCurrentUSer)
+router.route("/update-account").patch(verifyJWT,updateAccountDetails)
+
+router.route("/update-avatar").patch(
+    verifyJWT,
+    upload.single("avatar"),
+    updateUserAvatar
+)
+
+router.route("/update-cover-image").patch(
+    verifyJWT,
+    upload.single("coverimage"),
+    updateUserCoverImage
+)
 
 export default router
