@@ -1,5 +1,5 @@
 import {Router} from 'express';
-import { changeCurrentPassword, getCurrentUSer, getUserChannelProfile, getWatchHistory, loginUser, logoutUser, refreshAcessToken, registerUser, updateAccountDetails, updateUserAvatar, updateUserCoverImage } from '../controllers/user.controller.js';
+import { changeCurrentPassword, getCurrentUSer, getUserChannelProfile, getWatchHistory, loginUser, logoutUser, refreshAccessToken, registerUser, updateAccountDetails, updateUserAvatar, updateUserCoverImage } from '../controllers/user.controller.js';
 import {upload} from '../middlewares/multure.middleware.js';
 import { verifyJWT } from '../middlewares/auth.middleware.js';
 
@@ -18,7 +18,7 @@ router.route("/register").post(
     registerUser)
 
 router.route("/login").post(loginUser)
-router.route("/refresh-token").post(refreshAcessToken)
+router.route("/refresh-token").post(refreshAccessToken)
 
 //secured routes
 router.route("/logout").post(verifyJWT, logoutUser)
